@@ -1,8 +1,15 @@
 #!/usr/bin/python3
 import cmd
+<<<<<<< HEAD
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
+=======
+
+"""
+    program contains the entry point of the command interpreter
+"""
+>>>>>>> cmd interpreter
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -18,6 +25,7 @@ class HBNBCommand(cmd.Cmd):
         """Quits command interpreter with ctrl+d"""
         return True
 
+<<<<<<< HEAD
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
         args = line.split()
@@ -125,3 +133,8 @@ if __name__ == '__main__':
     cm = HBNBCommand()
     cm.cmdloop()
 
+=======
+if __name__ == '__main__':
+    cm = HBNBCommand()
+    cm.cmdloop()
+>>>>>>> cmd interpreter
