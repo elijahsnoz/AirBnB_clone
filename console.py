@@ -3,14 +3,6 @@ import cmd
 
 from models.base_model import BaseModel
 from models import storage
-from models.user import User
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
 
 """
     program contains the entry point of the command interpreter
@@ -21,6 +13,7 @@ class HBNBCommand(cmd.Cmd):
     Console class
     """
     prompt = '(hbnb) '
+    valid_class = ["BaseModel", "User"]
 
     def do_quit(self, line):
         """Quit command to exit the program"""
@@ -37,12 +30,25 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in ["BaseModel"]:
+        if class_name not in self.valid_class:
             print("** class doesn't exist **")
             return
         new_instance = BaseModel()
         new_instance.save()
         print(new_instance.id)
+
+    def do_count(self, line):
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        else:
+            class_name = args[0]
+            if class_name not in self.valid_class:
+                print("** class doesn't exist **")
+                return
+            objs = [obj for obj in storage.all().values() if type(obj).__name__ == class_name]
+            print(len(objs))
 
     def do_show(self, line):
         """Prints the string representation of an instance based on the class name and id."""
@@ -51,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in ["BaseModel"]:
+        if class_name not in self.valid_class:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -71,7 +77,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in ["BaseModel"]:
+        if class_name not in self.valid_class:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -92,11 +98,12 @@ class HBNBCommand(cmd.Cmd):
             objs = storage.all().values()
         else:
             class_name = args[0]
-            if class_name not in ["BaseModel"]:
+            if class_name not in self.valid_class:
                 print("** class doesn't exist **")
                 return
             objs = [obj for obj in storage.all().values() if type(obj).__name__ == class_name]
-        print(objs)
+        obj_list = [str(obj) for obj in objs]
+        print(obj_list)
 
     def do_update(self, line):
         """Updates an instance based on the class name and id by adding or updating attribute."""
@@ -105,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         class_name = args[0]
-        if class_name not in ["BaseModel"]:
+        if class_name not in self.valid_class:
             print("** class doesn't exist **")
             return
         if len(args) < 2:
@@ -132,6 +139,23 @@ class HBNBCommand(cmd.Cmd):
         obj = storage.all()[key]
         setattr(obj, attr_name, attr_value)
         obj.save()
+
+    def default(self, line):
+        """Handle unrecognized commands"""
+        if '.' in line and '(' in line and ')' in line:
+            try:
+                class_name, method_call = line.split('.', 1)
+                method_name = method_call.split('(', 1)[0]
+                if method_name and method_call.endswith(")"):
+                    command_method = getattr(self, f"do_{method_name}", None)
+                    if command_method:
+                        return command_method(class_name)
+                    else:
+                        print("** invalid command **")
+            except Exception as e:
+                print("** invalid command **")
+        else:
+            print("** invalid command **")
 
 if __name__ == '__main__':
     cm = HBNBCommand()
