@@ -10,7 +10,7 @@ class FileStorage:
     __objects = {}
 
     def all(self):
-        """Returns the dictionary __objects"""
+        """Returns the content of the JSON file"""
         return self.__objects
 
     def new(self, obj):
@@ -31,5 +31,6 @@ class FileStorage:
                 obj_dict = json.load(f)
             for key, value in obj_dict.items():
                 self.__objects[key] = BaseModel(**value)
+                self.__objects[key] = User(**value)
         except FileNotFoundError:
             pass
