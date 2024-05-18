@@ -59,15 +59,11 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of
         an instance based on the class name and id."""
-        args = line.split()
-        if len(args) == 0:
+        arg = line.split()
+        if len(arg) == 0:
             print("** class name missing **")
             return
-        class_name = args[0]
-        if class_name not in self.valid_class:
-            print("** class doesn't exist **")
-            return
-        if len(args) < 2:
+        elif len(args) == 0:
             print("** instance id missing **")
             return
         obj_id = args[1]
@@ -154,15 +150,21 @@ class HBNBCommand(cmd.Cmd):
         obj.save()
 
     def default(self, line):
-        """Handle unrecognized commands"""
+        """Handle unrecognized commands and pass arguments to the methods."""
         if '.' in line and '(' in line and ')' in line:
             try:
                 class_name, method_call = line.split('.', 1)
                 method_name = method_call.split('(', 1)[0]
-                if method_name and method_call.endswith(")"):
+                args_str = method_call.split('(', 1)[1][:-1]  # Get the part inside the parentheses
+                # print(f"arg str{args_str}")
+                args = args_str.split(',')  # Split arguments by comma
+                # Strip whitespace and quotes from arguments
+                args = [arg.strip().strip('"').strip("'") for arg in args]
+                
+                if method_name:
                     command_method = getattr(self, f"do_{method_name}", None)
                     if command_method:
-                        return command_method(class_name)
+                        return command_method(class_name, *args)
                     else:
                         print("** invalid command **")
             except Exception as e:
