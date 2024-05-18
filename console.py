@@ -8,6 +8,7 @@ from models import storage
     program contains the entry point of the command interpreter
 """
 
+
 class HBNBCommand(cmd.Cmd):
     """
     Console class
@@ -24,7 +25,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
+        """Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id."""
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -47,11 +49,13 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in self.valid_class:
                 print("** class doesn't exist **")
                 return
-            objs = [obj for obj in storage.all().values() if type(obj).__name__ == class_name]
+            objs = [obj for obj in storage.all().values()
+                    if type(obj).__name__ == class_name]
             print(len(objs))
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id."""
+        """Prints the string representation of
+        an instance based on the class name and id."""
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -71,7 +75,8 @@ class HBNBCommand(cmd.Cmd):
         print(storage.all()[key])
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and id (save the change into the JSON file)."""
+        """Deletes an instance based on the class
+        name and id (save the change into the JSON file)."""
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -92,7 +97,8 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name."""
+        """Prints all string representation of all
+        instances based or not on the class name."""
         args = line.split()
         if len(args) == 0:
             objs = storage.all().values()
@@ -101,12 +107,14 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in self.valid_class:
                 print("** class doesn't exist **")
                 return
-            objs = [obj for obj in storage.all().values() if type(obj).__name__ == class_name]
+            objs = [obj for obj in storage.all().values()
+                    if type(obj).__name__ == class_name]
         obj_list = [str(obj) for obj in objs]
         print(obj_list)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute."""
+        """Updates an instance based on the class name
+        and id by adding or updating attribute."""
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -156,6 +164,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** invalid command **")
         else:
             print("** invalid command **")
+
 
 if __name__ == '__main__':
     cm = HBNBCommand()
