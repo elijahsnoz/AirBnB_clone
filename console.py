@@ -155,12 +155,12 @@ class HBNBCommand(cmd.Cmd):
             try:
                 class_name, method_call = line.split('.', 1)
                 method_name = method_call.split('(', 1)[0]
-                args_str = method_call.split('(', 1)[1][:-1]  # Get the part inside the parentheses
+                # Get the part inside the parentheses
+                args_str = method_call.split('(', 1)[1][:-1]
                 # print(f"arg str{args_str}")
                 args = args_str.split(',')  # Split arguments by comma
                 # Strip whitespace and quotes from arguments
                 args = [arg.strip().strip('"').strip("'") for arg in args]
-                
                 if method_name:
                     command_method = getattr(self, f"do_{method_name}", None)
                     if command_method:
