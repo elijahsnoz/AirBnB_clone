@@ -15,7 +15,8 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     if key in ['created_at', 'updated_at']:
-                        self.__dict__[key] = datetime.strptime(value, DATE_TIME)
+                        string_date = datetime.strptime(value, DATE_TIME)
+                        self.__dict__[key] = string_date
                     else:
                         self.__dict__[key] = value
         else:
