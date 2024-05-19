@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """BaseModel Module"""
+import models
 import uuid
 from datetime import datetime
+
 
 class BaseModel:
     """Defines all common attributes/methods for other classes"""
@@ -14,7 +16,8 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     if key in ['created_at', 'updated_at']:
-                        self.__dict__[key] = datetime.strptime(value, DATE_TIME)
+                        self.__dict__[key] =
+                        datetime.strptime(value, DATE_TIME)
                     else:
                         self.__dict__[key] = value
         else:
@@ -33,7 +36,7 @@ class BaseModel:
         """Update the public instance attribute updated_at"""
         from models import storage  # Delayed import to avoid circular import
         self.updated_at = datetime.now()
-        storage.save()  # Save the change to storage
+        models.storage.save()  # Save the change to storage
 
     def to_dict(self):
         """Return a dictionary containing all keys/values of __dict__"""
