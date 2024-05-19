@@ -75,3 +75,6 @@ EOF  help  quit
 $
 ```
 
+## Authors :black_nib:
+* **Elijah Ajayi** <[elijahsnoz](https://github.com/elijahsnoz)>
+* **Azza mohamed** <[azzaomer](https://github.com/azzaomer)>
