@@ -3,7 +3,7 @@ import cmd
 
 from models.base_model import BaseModel
 from models import storage
-
+from models.state import State
 """
     program contains the entry point of the command interpreter
 """
@@ -14,7 +14,7 @@ class HBNBCommand(cmd.Cmd):
     Console class
     """
     prompt = '(hbnb) '
-    valid_class = ["BaseModel", "User"]
+    valid_class = ["BaseModel", "User", "State"]
 
     def do_quit(self, line):
         """Quit command to exit the program"""
