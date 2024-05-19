@@ -1,4 +1,6 @@
-AirBnB Clone
+<p align="center">
+  <img src"https://github.com/elijahsnoz/AirBnB_clone/blob/mybranch/hbnb_logo.png" alt="BnB logo">
+</p>
 
 ## Description :pencil2:
 # Welcome to the AirBnB clone project!
