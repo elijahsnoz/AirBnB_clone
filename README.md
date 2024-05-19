@@ -1,6 +1,6 @@
 AirBnB Clone
 
-## Description :label:
+## Description :pencil2:
 # Welcome to the AirBnB clone project!
 
 # First step: Write a command interpreter to manage your AirBnB objects.
@@ -75,6 +75,6 @@ EOF  help  quit
 $
 ```
 
-## Authors :black_nib:
+## Authors :blue_book:
 * **Elijah Ajayi** <[elijahsnoz](https://github.com/elijahsnoz)>
 * **Azza mohamed** <[azzaomer](https://github.com/azzaomer)>
