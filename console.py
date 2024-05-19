@@ -152,28 +152,18 @@ class HBNBCommand(cmd.Cmd):
                 # Extract class name and method call
                 class_name, method_call = line.split('.', 1)
                 method_name = method_call.split('(', 1)[0]
-                # Get the command method
-                command_method = getattr(self, f"do_{method_name}", None)
-
-                if command_method:
-                    # Call method with or without arguments
-                    if method_call.split('(', 1)[1] is not None:
-                        args_str = method_call.split('(', 1)[1][:-1]
-
-                        # Split arguments by comma
-                        args = args_str.split(',')
-
-                        cleaned_args = []
-                        for arg in args:
-                            stripped_arg = arg.strip().strip('"').strip("'")
-                            if stripped_arg:
-                                cleaned_args.append(stripped_arg)
-                        if cleaned_args:
-                            return command_method(class_name, *cleaned_args)
-                        else:
-                            return command_method(class_name)
-                else:
-                    print("** invalid command **")
+                # Get the part inside the parentheses
+                args_str = method_call.split('(', 1)[1][:-1]
+                # print(f"arg str{args_str}")
+                args = args_str.split(',')  # Split arguments by comma
+                # Strip whitespace and quotes from arguments
+                args = [arg.strip().strip('"').strip("'") for arg in args]
+                if method_name:
+                    command_method = getattr(self, f"do_{method_name}", None)
+                    if command_method:
+                        return command_method(class_name, *args)
+                    else:
+                        print("** invalid command **")
             except Exception as e:
                 print(f"** an error occurred: {e} **")
 
