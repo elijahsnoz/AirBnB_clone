@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """BaseModel Module"""
+import models
 import uuid
 from datetime import datetime
 
@@ -13,23 +14,26 @@ class BaseModel:
         DATE_TIME = '%Y-%m-%dT%H:%M:%S.%f'
         if kwargs:
             for key, value in kwargs.items():
-                if key != '__class__':
-                    if key in ['created_at', 'updated_at']:
-                        string_date = datetime.strptime(value, DATE_TIME)
-                        self.__dict__[key] = string_date
-                    else:
-                        self.__dict__[key] = value
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)  # Add new instance to storage
+                if key == '__class__':
+                    continue
+                if key in ['created_at', 'updated_at']:
+                    value = datetime.fromisoformat(value)
+                setattr(self, key, value)
+            return
+            """string_date = datetime.strptime(value, DATE_TIME)
+                    self.__dict__[key] = string_date
+                else:
+                    self.__dict__[key] = value"""
+
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        models.storage.new(self)  # Add new instance to storage
 
     def __str__(self):
         """Return string representation of the instance"""
         return "[{}] ({}) {}".format(
-            type(self).__name__, self.id, self.__dict__
-        )
+            type(self).__name__, self.id, self.__dict__)
 
     def save(self):
         """Update the public instance attribute updated_at"""
