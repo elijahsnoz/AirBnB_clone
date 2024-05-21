@@ -3,6 +3,8 @@ import cmd
 
 from models.base_model import BaseModel
 from models import storage
+import re
+import json
 
 """
 Program contains the entry point of the command interpreter
@@ -60,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of
         an instance based on the class name and id."""
-        arg = line.split()
+        arg = line.split(' ')
         if len(arg) == 0:
             print("** class name missing **")
             return
