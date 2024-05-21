@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
                     print(storage.all()[key])
                     """return print(storage.all()[key])"""
 
-      def do_destroy(self, line):
+    def do_destroy(self, line):
         """Deletes an instance based on the class name and id.
         """
         if line == "" or line is None:
