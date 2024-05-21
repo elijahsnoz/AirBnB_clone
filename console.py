@@ -13,6 +13,7 @@ class HBNBCommand(cmd.Cmd):
     """Class for the command interpreter."""
 
     prompt = "(hbnb) "
+    valid_class = ["BaseModel", "User", "State"]
 
     def do_EOF(self, line):
         """Handles End Of File character.
