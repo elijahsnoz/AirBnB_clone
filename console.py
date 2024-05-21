@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
             if class_name not in self.valid_class:
                 print("** class doesn't exist **")
                 return
-            obj_id = args[0]
+            obj_id = args[1]
             key = "{}.{}".format(class_name, obj_id)
             if key not in storage.all():
                 print("** no instance found **")
