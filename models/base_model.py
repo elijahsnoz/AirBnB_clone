@@ -37,14 +37,17 @@ class BaseModel:
 
     def save(self):
         """Update the public instance attribute updated_at"""
-        from models import storage  # Delayed import to avoid circular import
+        """from models import storage 
+        # Delayed import to avoid circular import
+        """
+
         self.updated_at = datetime.now()
-        storage.save()  # Save the change to storage
+        storage.save()  """Save the change to storage"""
 
     def to_dict(self):
         """Return a dictionary containing all keys/values of __dict__"""
-        instance_dict = {**self.__dict__}
-        instance_dict['__class__'] = type(self).__name__
-        instance_dict['created_at'] = instance_dict['created_at'].isoformat()
-        instance_dict['updated_at'] = instance_dict['updated_at'].isoformat()
+        instance_dict =self.__dict__.copy()""" {**self.__dict__}"""
+        instance_dict["__class__"] = type(self).__name__
+        instance_dict["created_at"] = instance_dict["created_at"].isoformat()
+        instance_dict['updated_at'] = instance_dict["updated_at"].isoformat()
         return instance_dict
