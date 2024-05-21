@@ -28,6 +28,19 @@ class HBNBCommand(cmd.Cmd):
         """Doesn't do anything on ENTER.
         """
         pass
+    def do_create(self, line):
+        """Creates a new instance of a given class and saves it"""
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        class_name = args[0]
+        if class_name not in self.valid_class:
+            print("** class doesn't exist **")
+            return
+        new_instance = BaseModel()
+        new_instance.save()
+        print(new_instance.id)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
