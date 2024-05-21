@@ -38,9 +38,8 @@ class BaseModel:
 
     def save(self):
         """Update the public instance attribute updated_at"""
-        """from models import storage 
-        # Delayed import to avoid circular import
-        """
+        from models import storage 
+        """ Delayed import to avoid circular import"""
 
         self.updated_at = datetime.now()
         storage.save()  """Save the change to storage"""
