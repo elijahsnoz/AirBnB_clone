@@ -23,7 +23,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, line):
-        """Quit command interpreter with ctrl+d"""
+        """Handles End Of File character."""
+        print()
         return True
 
     def emptyline(self):
@@ -60,15 +61,24 @@ class HBNBCommand(cmd.Cmd):
             print(len(objs))
 
     def do_show(self, line):
-        """Prints the string representation of an instance based
-        on the class name and id"""
-        args = ch_args(line)
-        if args:
-            if len(args) != 2:
+        """Prints the string representation of
+        an instance based on the class name and id."""
+        arg = line.split(' ')
+        if len(arg) == 0:
+            print("** class name missing **")
+            return
+        else:
+            class_name = arg[0]
+            if class_name not in self.valid_class:
+                print("** class doesn't exist **")
+                return
+            elif len(arg) < 2:
                 print("** instance id missing **")
+                return
             else:
-                key = "{}.{}".format(args[0], args[1])
-                if key not in self.storage.all():
+                obj_id = arg[1]
+                key = "{}.{}".format(class_name, obj_id)
+                if key not in storage.all():
                     print("** no instance found **")
                 else:
                     print(storage.all()[key])
@@ -96,58 +106,56 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not
-        based on the class name"""
-        arg_list = split(line)
-        objs = self.storage.all().values()
-        if not arg_list:
-            print([str(obj) for obj in objs])
+        """Shows all instances, or all instances of a given class"""
+        args = line.split()
+        if len(args) == 0:
+            objs = storage.all().values()
         else:
-            if arg_list[0] not in CLASSES:
+            class_name = args[0]
+            if class_name not in self.valid_class:
                 print("** class doesn't exist **")
-            else:
-                print([str(obj) for obj in objs
-                       if arg_list[0] in str(obj)])
+                return
+            objs = [obj for obj in storage.all().values()
+                    if type(obj).__name__ == class_name]
+        obj_list = [str(obj) for obj in objs]
+        print(obj_list)
 
-    def do_destroy(self, line):
-        """Delete a class instance based on the name and given id."""
-        arg_list = ch_args(line)
-        if arg_list:
-            if len(arg_list) == 1:
-                print("** instance id missing **")
-            else:
-                key = "{}.{}".format(*arg_list)
-                if key in self.storage.all():
-                    del self.storage.all()[key]
-                    self.storage.save()
-                else:
-                    print("** no instance found **")
-
-    def do_update(self, line):
+    def do_update(self, line, *args):
         """Updates an instance based on the class name and id by adding or
         updating attribute and save it to the JSON file."""
-        arg_list = ch_args(line)
+        arg = line.split(" ", 2)
+        if len(arg) == 0:
+            print("** class name missing **")
+            return
+        class_name = arg[0]
+        if class_name not in self.valid_class:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 1:
+            print("** instance id missing **")
+            return
+        arg_list = args
         if arg_list:
-            if len(arg_list) == 1:
+            if len(arg_list) < 0:
                 print("** instance id missing **")
             else:
-                id = "{}.{}".format(arg_list[0], arg_list[1])
-                if id in self.storage.all():
-                    if len(arg_list) == 2:
+                instance_id = "{}.{}".format(class_name, arg_list[0])
+                if instance_id in storage.all():
+                    if len(arg_list) == 1:
                         print("** attribute name missing **")
-                    elif len(arg_list) == 3:
+                    elif len(arg_list) == 2:
                         print("** value missing **")
                     else:
-                        obj = self.storage.all()[id]
-                        if arg_list[2] in type(obj).__dict__:
-                            v_type = type(obj.__class__.__dict__[arg_list[2]])
-                            setattr(obj, arg_list[2], v_type(arg_list[3]))
+                        obj = storage.all()[instance_id]
+                        if arg_list[1] in type(obj).__dict__:
+                            v_type = type(obj.__class__.__dict__[arg_list[1]])
+                            setattr(obj, arg_list[1], v_type(arg_list[2]))
                         else:
-                            setattr(obj, arg_list[2], arg_list[3])
+                            setattr(obj, arg_list[1], arg_list[2])
                 else:
                     print("** no instance found **")
 
-            self.storage.save()
+            storage.save()
 
     def default(self, line):
         """Handle unrecognized commands and pass arguments to the methods."""
