@@ -62,17 +62,23 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an instance based
         on the class name and id"""
-        args = ch_args(line)
-        if args:
-            if len(args) != 2:
-                print("** instance id missing **")
-            else:
-                key = "{}.{}".format(args[0], args[1])
-                if key not in self.storage.all():
+        args = line.split(' ')
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        class_name = args[0]
+        if class_name not in self.valid_class:
+            print("** class doesn't exist **")
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+        else:
+            key = f"{args[0]}.{args[1]}"
+            if key not in storage.all():
                     print("** no instance found **")
-                else:
-                    print(storage.all()[key])
-                    """return print(storage.all()[key])"""
+                    return
+        print(storage.all()[key])
+        """return print(storage.all()[key])"""
 
     def do_destroy(self, line):
         """Deletes an instance based on class name and id"""
@@ -98,20 +104,33 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints all string representation of all instances based or not
         based on the class name"""
-        arg_list = split(line)
-        objs = self.storage.all().values()
+        """arg_list = line.split(line)
+        objs = storage.all().values()
         if not arg_list:
             print([str(obj) for obj in objs])
         else:
-            if arg_list[0] not in CLASSES:
+            if arg_list[0] not in self.valid_class:
+                print("** class doesn't exist **")
+                return
+            print([str(obj) for obj in objs
+                if arg_list[0] in str(obj)])"""
+        """Prints all string representation of all instances.
+        """
+        if line != "":
+            words = line.split(' ')
+            if words[0] not in self.valid_class:
                 print("** class doesn't exist **")
             else:
-                print([str(obj) for obj in objs
-                       if arg_list[0] in str(obj)])
+                nl = [str(obj) for key, obj in storage.all().items()
+                      if type(obj).__name__ == words[0]]
+                print(nl)
+        else:
+            new_list = [str(obj) for key, obj in storage.all().items()]
+            print(new_list)
 
     def do_destroy(self, line):
         """Delete a class instance based on the name and given id."""
-        arg_list = ch_args(line)
+        """arg_list = line.split()
         if arg_list:
             if len(arg_list) == 1:
                 print("** instance id missing **")
@@ -122,6 +141,22 @@ class HBNBCommand(cmd.Cmd):
                     self.storage.save()
                 else:
                     print("** no instance found **")
+        """
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            args = line.split(' ')
+            if args[0] not in self.valid_class:
+                print("** class doesn't exist **")
+            elif len(args) < 2:
+                print("** instance id missing **")
+            else:
+                key = "{}.{}".format(args[0], args[1])
+                if key not in storage.all():
+                    print("** no instance found **")
+                else:
+                    del storage.all()[key]
+                    storage.save()
 
     def do_update(self, line):
         """Updates an instance based on the class name and id by adding or
