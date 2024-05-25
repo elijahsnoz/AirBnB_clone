@@ -1,0 +1,22 @@
+header {
+    height: 50px; /* Adjusted height to fit the larger logo */
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Increase margin to provide space for the logo */
+}
+
+.logo {
+    width: 70px; /* Set width to 70px */
+    height: 70px; /* Set height to 70px */
+    background-image: url('../images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 40px; /* Adjust margin-top to position the logo slightly more down */
+}

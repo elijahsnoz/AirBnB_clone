@@ -1,0 +1,18 @@
+footer {
+    background-color: white; /* Changed to white */
+    height: 50px; /* Adjusted height to fit with the header */
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer h2 {
+    color: #484848;
+    margin: 0;
+}
+
