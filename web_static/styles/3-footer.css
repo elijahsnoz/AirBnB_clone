@@ -1,6 +1,6 @@
 footer {
-    background-color: white; /* Changed to white */
-    height: 50px; /* Adjusted height to fit with the header */
+    background-color: white;
+    height: 50px;
     width: 100%;
     border-top: 1px solid #CCCCCC;
     position: fixed;
@@ -15,4 +15,3 @@ footer h2 {
     color: #484848;
     margin: 0;
 }
-
