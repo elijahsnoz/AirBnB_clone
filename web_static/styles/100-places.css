@@ -1,0 +1,81 @@
+article .amenities, .reviews {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.article_sub {
+    font-size: 16px;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 0px;
+    margin: 0px;
+    padding-bottom: 10px;
+}
+.article_sub h2 {
+    font-size: 16px;
+    border-bottom: #DDDDDD 1px;
+}
+
+div:nth-of-type(2) p {
+    margin: 2px 0;
+    padding: 2px;
+}
+
+article ul {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+article li {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+article h3 {
+    display: block;
+    font-size: 14px;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+.guest_icon, .bed_icon, .bath_icon, .tv_icon, .wifi_icon, .pet_icon {
+    display: inline-block;
+    background-size: cover;
+    width: 30px; /* Increased size */
+    height: 30px; /* Increased size */
+    margin-right: 10px;
+}
+
+.guest_icon {
+    background-image: url("../images/icon_group.png");
+}
+
+.bed_icon {
+    background-image: url("../images/icon_bed.png");
+}
+
+.bath_icon {
+    background-image: url("../images/icon_bath.png");
+}
+
+.tv_icon {
+    background-image: url("../images/icon_tv.png");
+}
+
+.wifi_icon {
+    background-image: url("../images/icon_wifi.png");
+}
+
+.pet_icon {
+    background-image: url("../images/icon_pets.png");
+}

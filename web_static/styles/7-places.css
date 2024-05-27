@@ -1,0 +1,36 @@
+.places {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.places h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.places-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+.places-container article {
+    width: 390px;
+    padding: 20px;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.places-container article:nth-child(3) {
+    grid-column: span 2;
+    justify-self: center;
+}
+
+.places h2 {
+    font-size: 30px;
+    margin: 0;
+}
