@@ -1,11 +1,9 @@
-
-article .amenities, .reviews{
+article .amenities, .reviews {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-top: 40px;
 }
-
 
 .article_sub {
     font-size: 16px;
@@ -18,8 +16,12 @@ article .amenities, .reviews{
 }
 .article_sub h2 {
     font-size: 16px;
-    border-bottom: #DDDDDD 1px
+    border-bottom: #DDDDDD 1px;
+}
 
+div:nth-of-type(2) p {
+    margin: 2px 0;
+    padding: 2px;
 }
 
 article ul {
@@ -44,32 +46,36 @@ article h3 {
     padding: 0px;
     margin: 0px;
     margin-bottom: 5px;
+}
 
+.guest_icon, .bed_icon, .bath_icon, .tv_icon, .wifi_icon, .pet_icon {
+    display: inline-block;
+    background-size: cover;
+    width: 30px; /* Increased size */
+    height: 30px; /* Increased size */
+    margin-right: 10px;
+}
+
+.guest_icon {
+    background-image: url("../images/icon_group.png");
+}
+
+.bed_icon {
+    background-image: url("../images/icon_bed.png");
+}
+
+.bath_icon {
+    background-image: url("../images/icon_bath.png");
 }
 
 .tv_icon {
-    display: inline-block;
     background-image: url("../images/icon_tv.png");
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
 }
 
 .wifi_icon {
-    display: inline-block;
     background-image: url("../images/icon_wifi.png");
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
 }
 
 .pet_icon {
-    display: inline-block;
     background-image: url("../images/icon_pets.png");
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
 }
