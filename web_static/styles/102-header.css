@@ -1,0 +1,10 @@
+header {
+  height: 50px;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+  background: white url(../images/logo.png);
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: auto 40px; /* Adjust this value to control the logo size */
+  flex-shrink: 0;
+}
