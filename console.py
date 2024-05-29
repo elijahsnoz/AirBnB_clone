@@ -43,6 +43,7 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
+<<<<<<< HEAD
     def do_show(self, line):
         """Prints the string representation of
         an instance based on the class name and id."""
@@ -50,11 +51,38 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) == 0:
             print("** class name missing **")
             return
+=======
+    def do_count(self, line):
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        else:
+            class_name = args[0]
+            if class_name not in self.valid_class:
+                print("** class doesn't exist **")
+                return
+            objs = [obj for obj in storage.all().values()
+                    if type(obj).__name__ == class_name]
+            print(len(objs))
+
+    def do_show(self, line, *args):
+        """Prints the string representation of
+        an instance based on the class name and id."""
+        arg = line.split()
+        if len(arg) == 0:
+            print("** class name missing **")
+            return
+        elif len(args) == 0:
+            print("** instance id missing **")
+            return
+>>>>>>> 0794edb (console)
         else:
             class_name = arg[0]
             if class_name not in self.valid_class:
                 print("** class doesn't exist **")
                 return
+<<<<<<< HEAD
             elif len(arg) < 2:
                 print("** instance id missing **")
                 return
@@ -66,6 +94,14 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print(storage.all()[key])
                     """return print(storage.all()[key])"""
+=======
+            obj_id = args[0]
+            key = "{}.{}".format(class_name, obj_id)
+            if key not in storage.all():
+                print("** no instance found **")
+                return
+            print(storage.all()[key])
+>>>>>>> 0794edb (console)
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id.
@@ -145,6 +181,7 @@ class HBNBCommand(cmd.Cmd):
                 # Extract class name and method call
                 class_name, method_call = line.split('.', 1)
                 method_name = method_call.split('(', 1)[0]
+<<<<<<< HEAD
                 # Get the command method
                 command_method = getattr(self, f"do_{method_name}", None)
 
@@ -167,6 +204,20 @@ class HBNBCommand(cmd.Cmd):
                             return command_method(class_name)
                 else:
                     print("** invalid command **")
+=======
+                args_str = method_call.split('(', 1)[1][:-1]  # Get the part inside the parentheses
+                # print(f"arg str{args_str}")
+                args = args_str.split(',')  # Split arguments by comma
+                # Strip whitespace and quotes from arguments
+                args = [arg.strip().strip('"').strip("'") for arg in args]
+                
+                if method_name:
+                    command_method = getattr(self, f"do_{method_name}", None)
+                    if command_method:
+                        return command_method(class_name, *args)
+                    else:
+                        print("** invalid command **")
+>>>>>>> 0794edb (console)
             except Exception as e:
                 print(f"** an error occurred: {e} **")
 if __name__ == '__main__':
