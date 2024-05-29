@@ -1,0 +1,35 @@
+/* Common styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    header, footer {
+        text-align: center;
+    }
+
+    .filters, .places {
+        width: 100%;
+    }
+
+    .places-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
